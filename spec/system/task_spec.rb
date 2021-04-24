@@ -61,6 +61,7 @@ RSpec.describe 'Task', type: :system do
   describe 'Task編集' do
     let(:project){ create(:project) }
     let(:task){ create(:task) }
+    let(:task_done) { create(:task, :done) }
 
     context '正常系' do
       xit 'Taskを編集した場合、一覧画面で編集後の内容が表示されること' do
@@ -84,8 +85,7 @@ RSpec.describe 'Task', type: :system do
       end
 
       it '既にステータスが完了のタスクのステータスを変更した場合、Taskの完了日が更新されないこと' do
-        # TODO: FactoryBotのtraitを利用してください
-        task = FactoryBot.create(:task, project_id: project.id, status: :done, completion_date: Time.current.yesterday)
+        # （済）TODO: FactoryBotのtraitを利用してください
         visit edit_project_task_path(project, task)
         select 'todo', from: 'Status'
         click_button 'Update Task'
